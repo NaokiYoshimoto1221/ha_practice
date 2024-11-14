@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ABC分析</title>
+</head>
+<body>
+    <h1>ABC分析結果</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>商品名</th>
+                <th>販売数</th>
+                <th>価格</th>
+                <th>売上金額</th>
+                <th>累積売上割合</th>
+                <th>クラス</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in sorted_sales %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.sold }}</td>
+                <td>¥{{ item.product.price }}</td>
+                <td>¥{{ item.sales }}</td>
+                <td>{{ item.cumulative_percentage|round(2) }}%</td>
+                <td>{{ item.class }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}">商品リストに戻る</a>
+</body>
+</html>
+

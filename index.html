@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>在庫管理システム</title>
+</head>
+<body>
+    <h1>在庫管理システム</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="商品名" required>
+        <input type="number" name="stock" placeholder="在庫数" required>
+        <input type="number" name="price" placeholder="価格" step="0.01" required>
+        <button type="submit">商品を追加</button>
+    </form>
+
+
+    <h2>商品リスト</h2>
+    <ul>
+        {% for product in products %}
+            <li>
+                {{ product.name }} - 在庫: {{ product.stock }} - 価格: ¥{{ product.price }} - 販売数: {{ product.sold }}
+               
+                <!-- 販売ボタン -->
+                <form action="/sell/{{ product.id }}" method="POST" style="display:inline;">
+                    <button type="submit">販売</button>
+                </form>
+
+
+                <!-- 在庫追加ボタン -->
+                <form action="/add_stock/{{ product.id }}" method="POST" style="display:inline;">
+                    <button type="submit">在庫を追加</button>
+                </form>
+
+
+                <!-- 在庫削除ボタン -->
+                <form action="/remove_stock/{{ product.id }}" method="POST" style="display:inline;">
+                    <button type="submit">在庫を削除</button>
+                </form>
+
+
+                <!-- 削除ボタン -->
+                <form action="/delete/{{ product.id }}" method="POST" style="display:inline;">
+                    <button type="submit">削除</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <br>
+    <a href="{{ url_for('abc_analysis') }}">ABC分析を実行</a> <!-- 追加 -->
+   
+</body>
+</html>
